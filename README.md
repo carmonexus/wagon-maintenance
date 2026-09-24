@@ -8,6 +8,7 @@ Universidade Católica de Petrópolis (UCP), Petrópolis, RJ, Brazil
 📑 **Full paper (SBPO 2026 proceedings):** https://proceedings.science/sbpo-2026/trabalhos/optimization-of-wagon-maintenance-mix-allocation-in-freight-railways-using-integ?lang=pt-br
 📄 **FAQ page (PT/EN):** https://carmonexus.github.io/wagon-maintenance/
 🖼️ **Poster:** [Portuguese](poster/poster_SBPO2026.pdf) · [English](poster/poster_SBPO2026_EN.pdf)
+🎞️ **Slides (PT, 10 slides):** [poster/apresentacao_SBPO2026.pptx](poster/apresentacao_SBPO2026.pptx)
 
 ---
 
