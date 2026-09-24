@@ -6,7 +6,7 @@ Carmo Crediney Melo · José Cristiano Pereira · Luciano Moreira da Silva Varri
 Universidade Católica de Petrópolis (UCP), Petrópolis, RJ, Brazil
 
 📄 **FAQ page (PT/EN):** https://carmonexus.github.io/wagon-maintenance/
-🖼️ **Poster:** [poster/poster_SBPO2026.pdf](poster/poster_SBPO2026.pdf)
+🖼️ **Poster:** [Portuguese](poster/poster_SBPO2026.pdf) · [English](poster/poster_SBPO2026_EN.pdf)
 
 ---
 
