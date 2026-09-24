@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manutenção de Vagões – FAQ</title>
+<meta name="description" content="FAQ do pôster SBPO 2026: otimização do mix de alocação da manutenção de vagões por programação linear inteira.">
+<style>
+  :root { --indigo:#2a2270; --gold:#f2b230; --ink:#1d2733; --muted:#5b6573; --bg:#ffffff; --panel:#f5f6fa; --line:#d9dde6; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --indigo:#b9b2ff; --ink:#e7e9ee; --muted:#a3abb8; --bg:#14151c; --panel:#1f2130; --line:#33364a; }
+  }
+  :root[data-theme="dark"] { --indigo:#b9b2ff; --ink:#e7e9ee; --muted:#a3abb8; --bg:#14151c; --panel:#1f2130; --line:#33364a; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:17px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  header { background:#2a2270; color:#fff; padding:28px 16px 22px; border-bottom:6px solid var(--gold); }
+  .wrap { max-width:760px; margin:0 auto; padding:0 16px; }
+  header .wrap { padding:0; }
+  .tag { color:var(--gold); font-weight:700; font-size:13px; letter-spacing:.08em; }
+  h1 { font-size:24px; line-height:1.25; margin:8px 0 6px; }
+  .en { color:#d9d6f3; font-style:italic; font-size:15px; }
+  .lang { display:flex; gap:8px; margin:22px 0 6px; }
+  .lang button { border:1px solid var(--line); background:var(--panel); color:var(--ink); padding:6px 14px; border-radius:999px; font:inherit; font-size:14px; cursor:pointer; }
+  .lang button[aria-pressed="true"] { background:var(--indigo); color:var(--bg); border-color:var(--indigo); }
+  details { background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:10px 0; padding:0 16px; }
+  summary { cursor:pointer; font-weight:600; padding:14px 0; }
+  details p, details ul { margin:0 0 14px; }
+  .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin:18px 0; }
+  .kpi { background:var(--panel); border-left:4px solid var(--gold); border-radius:8px; padding:10px 12px; }
+  .kpi b { display:block; font-size:22px; color:var(--indigo); }
+  .kpi span { font-size:13px; color:var(--muted); }
+  .contact { background:var(--panel); border-radius:10px; padding:16px; margin:24px 0 40px; }
+  .contact a { color:var(--indigo); font-weight:600; }
+  [lang="en"] { display:none; }
+  body.en-on [lang="en"] { display:revert; }
+  body.en-on [lang="pt"] { display:none; }
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="tag">SBPO 2026 · PÔSTER / POSTER</div>
+  <h1>Otimização do Mix de Alocação da Manutenção de Vagões em Ferrovias de Carga por Programação Linear Inteira</h1>
+  <div class="en">Optimization of Wagon Maintenance Mix Allocation in Freight Railways Using Integer Linear Programming</div>
+</div></header>
+
+<div class="wrap">
+  <div class="lang" role="group" aria-label="Idioma / Language">
+    <button id="bpt" aria-pressed="true">Português</button>
+    <button id="ben" aria-pressed="false">English</button>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><b>39 → 9</b><span lang="pt">backlog final (vagões)</span><span lang="en">final backlog (wagons)</span></div>
+    <div class="kpi"><b>−54,4%</b><span lang="pt">backlog acumulado</span><span lang="en">cumulative backlog</span></div>
+    <div class="kpi"><b>−25,4%</b><span lang="pt">custo total do sistema</span><span lang="en">total system cost</span></div>
+    <div class="kpi"><b>&lt; 1 s</b><span lang="pt">tempo de solução</span><span lang="en">solve time</span></div>
+  </div>
+
+  <section lang="pt">
+    <details open><summary>Qual problema o modelo resolve?</summary>
+      <p>Decide, mês a mês, <b>em qual posto de manutenção</b> cada vagão (por região, tipo e escopo) deve ser atendido e <b>quanto deixar em backlog</b>, respeitando capacidade em homem-hora, elegibilidade técnica e custos logísticos e de indisponibilidade.</p></details>
+    <details><summary>Por que programação linear <i>inteira</i>?</summary>
+      <p>Vagões não podem ser fracionados. A relaxação linear atendeu 995,32 vagões e deixou 8,68 em backlog — quantidades fisicamente impossíveis. O gap entre a relaxação e o ótimo inteiro foi de 0,82%.</p></details>
+    <details><summary>Por que o plano ótimo faz mais transferências e mesmo assim custa menos?</summary>
+      <p>O modelo só transfere um vagão para outra região quando o custo composto (manutenção + logística + indisponibilidade + retenção) é menor que a penalidade de mantê-lo parado no backlog. O custo de serviço sobe ~9%, mas a penalidade de backlog cai ~59%.</p></details>
+    <details><summary>Qual a heurística de comparação? Ela foi enfraquecida?</summary>
+      <p>Não. É uma regra “local-first” com as mesmas restrições do modelo: preenche carga mínima, envia primeiro ao posto local elegível, depois a outros postos por custo crescente, e carrega o resto para o mês seguinte. Os dois métodos diferem apenas na qualidade da decisão.</p></details>
+    <details><summary>Os dados são reais?</summary>
+      <p>A instância é anonimizada e reprodutível (1.004 intervenções, 12 meses, 3 regiões, 3 postos, gôndolas GDT e GDU). Custos são normalizados; os ganhos não são previsão para uma concessionária específica.</p></details>
+    <details><summary>O que são VR1, VR2, VR4, VRG e VMC?</summary>
+      <p>VR1 e VR2: revisões leves. VR4: revisão pesada quadrienal. VRG: revisão geral. VMC: manutenção corretiva. VR4 e VRG só podem ser feitas no posto PM2, que tem o equipamento necessário.</p></details>
+    <details><summary>O modelo escala para uma frota real?</summary>
+      <p>Instâncias replicadas com até 11.520 variáveis foram resolvidas em menos de 6 segundos com o solver HiGHS — rápido frente a um ciclo de planejamento mensal.</p></details>
+    <details><summary>Quais os próximos passos?</summary>
+      <p>Incerteza na demanda, capacidade detalhada da malha, idade do backlog e disponibilidade de estoque MRO, usando dados de concessionárias.</p></details>
+  </section>
+
+  <section lang="en">
+    <details open><summary>What problem does the model solve?</summary>
+      <p>Month by month, it decides <b>which maintenance post</b> should service each wagon (by region, type and scope) and <b>how much to keep in backlog</b>, under person-hour capacity, technical eligibility, and logistics and unavailability costs.</p></details>
+    <details><summary>Why <i>integer</i> programming?</summary>
+      <p>Wagons cannot be split. The LP relaxation serviced 995.32 wagons and left 8.68 in backlog — physically impossible quantities. The relaxation gap was 0.82%.</p></details>
+    <details><summary>Why does the optimal plan move more wagons yet cost less?</summary>
+      <p>It transfers a wagon to another region only when the composite cost (maintenance + logistics + unavailability + retention) is lower than the backlog penalty. Service cost rises ~9%, but the backlog penalty falls ~59%.</p></details>
+    <details><summary>What is the baseline heuristic? Was it weakened?</summary>
+      <p>No. It is a local-first rule under the same constraints: fill minimum workloads, send demand to the local eligible post first, then to other posts by increasing cost, and carry the rest to the next month. Both methods differ only in decision quality.</p></details>
+    <details><summary>Is the data real?</summary>
+      <p>The instance is anonymized and reproducible (1,004 interventions, 12 months, 3 regions, 3 posts, GDT and GDU gondolas). Costs are normalized; savings are not a forecast for a specific railway.</p></details>
+    <details><summary>What are VR1, VR2, VR4, VRG and VMC?</summary>
+      <p>VR1 and VR2: light reviews. VR4: four-year heavy review. VRG: general heavy review. VMC: corrective maintenance. VR4 and VRG can only be done at post PM2, the one with the required equipment.</p></details>
+    <details><summary>Does it scale to a real fleet?</summary>
+      <p>Replicated instances with up to 11,520 variables solved in under 6 seconds with HiGHS — fast relative to a monthly planning cycle.</p></details>
+    <details><summary>What comes next?</summary>
+      <p>Demand uncertainty, detailed network capacity, backlog age and MRO inventory availability, using railway-specific data.</p></details>
+  </section>
+
+  <div class="contact" style="margin-bottom:12px">
+    <b lang="pt">Materiais</b><b lang="en">Materials</b><br>
+    <a href="poster/poster_SBPO2026.pdf" lang="pt">📄 Baixar o pôster (PDF, 90 × 140 cm)</a><a href="poster/poster_SBPO2026.pdf" lang="en">📄 Download the poster (PDF, 90 × 140 cm)</a><br>
+    <a href="https://github.com/carmonexus/wagon-maintenance" lang="pt">💻 Código-fonte e dados do experimento (GitHub)</a><a href="https://github.com/carmonexus/wagon-maintenance" lang="en">💻 Source code and experiment data (GitHub)</a>
+  </div>
+  <div class="contact">
+    <b lang="pt">Contato</b><b lang="en">Contact</b><br>
+    Carmo Crediney Melo — Universidade Católica de Petrópolis (UCP)<br>
+    <a href="https://www.linkedin.com/in/carmo-melo/">LinkedIn</a> · <a href="mailto:carmo.42640028@ucp.br">carmo.42640028@ucp.br</a><br>
+    <span lang="pt" style="color:var(--muted);font-size:14px">Coautores: José Cristiano Pereira, Luciano M. S. Varricchio, Prudente J. T. Aguiar, Felipe M. Lopes, Bruno M. O. Jordão.</span>
+    <span lang="en" style="color:var(--muted);font-size:14px">Co-authors: José Cristiano Pereira, Luciano M. S. Varricchio, Prudente J. T. Aguiar, Felipe M. Lopes, Bruno M. O. Jordão.</span>
+  </div>
+</div>
+<script>
+  const set = en => { document.body.classList.toggle('en-on', en);
+    document.getElementById('bpt').setAttribute('aria-pressed', !en);
+    document.getElementById('ben').setAttribute('aria-pressed', en);
+    try { localStorage.setItem('lang', en ? 'en' : 'pt'); } catch (e) {} };
+  document.getElementById('bpt').onclick = () => set(false);
+  document.getElementById('ben').onclick = () => set(true);
+  let saved = null; try { saved = localStorage.getItem('lang'); } catch (e) {}
+  set(saved ? saved === 'en' : !navigator.language.toLowerCase().startsWith('pt'));
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+indicator,value
+annual_demand_wagons,1004.0
+annual_demand_hh,14556.0
+annual_effective_capacity_hh,15664.0
+heavy_scope_hh,6593.0
+pm2_effective_capacity_hh,6525.0
+milp_objective,170689.5
+lp_objective,169296.92505175987
+lp_gap_percent,0.8158527315623573

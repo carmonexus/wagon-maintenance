@@ -1,0 +1,10 @@
+origin_region,workshop,logistics_cost,transit_days
+R1,PM1,4,0.5
+R1,PM2,55,3.0
+R1,PM3,30,1.5
+R2,PM1,45,2.5
+R2,PM2,4,0.5
+R2,PM3,38,2.0
+R3,PM1,28,1.5
+R3,PM2,42,2.0
+R3,PM3,4,0.5

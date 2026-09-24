@@ -1,0 +1,4 @@
+workshop,region,minimum_hh,nominal_maximum_hh,third_party
+PM1,R1,180,420,0
+PM2,R2,300,580,0
+PM3,R3,160,380,1

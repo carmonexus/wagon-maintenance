@@ -1,0 +1,11 @@
+scope_type,wagon_type,scope_family,annual_demand,scope_description
+GDT-VR1,GDT,VR1,252,GDT light review 1
+GDT-VR2,GDT,VR2,7,GDT light review 2
+GDT-VR4,GDT,VR4,46,GDT four-year heavy review
+GDT-VRG,GDT,VRG,94,GDT general heavy review
+GDT-VMC,GDT,VMC,315,GDT corrective maintenance
+GDU-VR1,GDU,VR1,109,GDU light review 1
+GDU-VR2,GDU,VR2,14,GDU light review 2
+GDU-VR4,GDU,VR4,31,GDU four-year heavy review
+GDU-VRG,GDU,VRG,8,GDU general heavy review
+GDU-VMC,GDU,VMC,128,GDU corrective maintenance
