@@ -1,83 +1,52 @@
-# Optimization of Wagon Maintenance Mix Allocation in Freight Railways Using Integer Linear Programming
+# Wagon Maintenance Mix – Freight Railway Optimization
 
-**LVIII SBPO 2026 – Simpósio Brasileiro de Pesquisa Operacional · Poster session**
+Research material on the allocation of freight-wagon maintenance among heterogeneous workshops, developed at the Universidade Católica de Petrópolis (UCP), Petrópolis, RJ, Brazil.
 
-Carmo Crediney Melo · José Cristiano Pereira · Luciano Moreira da Silva Varricchio · Prudente José Tavares Aguiar · Felipe Machado Lopes · Bruno Malhano de Oliveira Jordão
-Universidade Católica de Petrópolis (UCP), Petrópolis, RJ, Brazil
-
-📑 **Full paper (SBPO 2026 proceedings):** https://proceedings.science/sbpo-2026/trabalhos/optimization-of-wagon-maintenance-mix-allocation-in-freight-railways-using-integ?lang=pt-br
-📄 **FAQ page (PT/EN):** https://carmonexus.github.io/wagon-maintenance/
-🖼️ **Poster:** [Portuguese](poster/poster_SBPO2026.pdf) · [English](poster/poster_SBPO2026_EN.pdf)
-🎞️ **Slides (PT, 10 slides):** [poster/apresentacao_SBPO2026.pptx](poster/apresentacao_SBPO2026.pptx)
+🌐 **Site:** https://carmonexus.github.io/wagon-maintenance/
 
 ---
 
 ## Português
 
-Este repositório contém o código-fonte, os dados de entrada anonimizados e todos os resultados do experimento reprodutível apresentado no artigo. O modelo de programação linear inteira multiperíodo distribui a demanda regional de manutenção de vagões entre postos heterogêneos, considerando tipo de vagão, elegibilidade técnica, capacidade efetiva em homem-hora (HH), custos compostos (manutenção, logística, indisponibilidade e retenção) e backlog.
+### O problema
 
-**Principais resultados na instância de teste (1.004 intervenções, 12 meses, 3 regiões, 3 postos):**
+Uma ferrovia de carga mantém uma frota de milhares de vagões de tipos diferentes, distribuídos por várias regiões. A manutenção programada dessa frota precisa ser executada em postos (oficinas) heterogêneos: cada posto só é tecnicamente habilitado para alguns tipos de vagão, tem uma capacidade mensal limitada em homem-hora (HH) e fica a uma distância diferente de cada região.
 
-| Indicador | Heurística local | Ótimo PLI |
-|---|---|---|
-| Vagões atendidos | 965 | 995 |
-| Backlog final (vagões) | 39 | 9 |
-| Backlog acumulado | — | −54,4 % |
-| Custo total do sistema | — | −25,4 % |
-| Tempo de solução (1.152 variáveis) | — | < 1 s |
+Decidir **qual posto atende cada parcela da demanda regional em cada mês** envolve um compromisso entre:
 
-Instância 10× maior (11.520 variáveis) resolvida em menos de 6 s com HiGHS via SciPy.
+- **custo de manutenção** próprio de cada posto;
+- **custo logístico** de deslocar o vagão até o posto e de volta;
+- **custo de indisponibilidade** do vagão durante o trânsito e a intervenção;
+- **custo de retenção (backlog)** quando a demanda não é atendida no mês e se acumula para o mês seguinte.
 
-### Como reproduzir
+A prática usual, uma heurística "posto local primeiro", respeita a capacidade de cada oficina mas ignora o efeito acumulado do backlog ao longo do horizonte. O trabalho formula o problema como um modelo de **programação linear inteira multiperíodo** que minimiza o custo total do sistema e mostra, numa instância anonimizada de 12 meses, 3 regiões e 3 postos, redução de 54 % no backlog acumulado e de 25 % no custo total em relação à heurística, com solução em menos de 1 s.
 
-```bash
-pip install -r requirements.txt
-cd experiment
-python run_experiment.py              # resolve MILP, heurística, relaxação LP e escalabilidade; grava os CSV e PNG
-python gerar_figuras_modelagem_en.py  # figura didática das curvas de isocusto
-```
+### Trabalhos
 
-Os valores monetários são normalizados e as regiões são anonimizadas. Não há dados proprietários no repositório.
+| Pasta | Conteúdo |
+|---|---|
+| [SBPO_2026/](SBPO_2026/) | Artigo e pôster apresentados no LVIII SBPO 2026: página FAQ (PT/EN), código do experimento reprodutível, dados anonimizados, resultados, pôster e slides. **Página:** https://carmonexus.github.io/wagon-maintenance/SBPO_2026/ |
 
 ## English
 
-This repository holds the source code, anonymized input data and all outputs of the reproducible experiment reported in the paper. A multi-period integer linear programming model allocates regional wagon-maintenance demand among heterogeneous posts, taking into account wagon type, technical eligibility, effective person-hour capacity, composite costs (maintenance, logistics, transit unavailability and retention) and backlog.
+### The problem
 
-**Main results on the test instance (1,004 interventions, 12 months, 3 regions, 3 posts):**
+A freight railway keeps a fleet of thousands of wagons of different types, spread across several regions. Scheduled maintenance must be carried out at heterogeneous workshops: each workshop is technically eligible for only some wagon types, has a limited monthly person-hour capacity and sits at a different distance from each region.
 
-| Indicator | Local-first heuristic | ILP optimum |
-|---|---|---|
-| Serviced wagons | 965 | 995 |
-| Final backlog (wagons) | 39 | 9 |
-| Cumulative backlog | — | −54.4 % |
-| Total system cost | — | −25.4 % |
-| Solve time (1,152 variables) | — | < 1 s |
+Deciding **which workshop serves each share of regional demand in each month** trades off:
 
-A 10× instance (11,520 variables) solves in under 6 s with HiGHS through SciPy.
+- the **maintenance cost** of each workshop;
+- the **logistics cost** of moving the wagon to the workshop and back;
+- the **unavailability cost** of the wagon during transit and intervention;
+- the **retention (backlog) cost** when demand is not met in the month and carries over to the next.
 
-### How to reproduce
+Common practice, a "local workshop first" heuristic, respects workshop capacity but ignores the cumulative effect of backlog over the horizon. The work formulates the problem as a **multi-period integer linear programming** model that minimizes total system cost and shows, on an anonymized instance with 12 months, 3 regions and 3 workshops, a 54 % reduction in cumulative backlog and 25 % in total cost against the heuristic, solved in under 1 s.
 
-```bash
-pip install -r requirements.txt
-cd experiment
-python run_experiment.py              # MILP, heuristic, LP relaxation and scalability; writes CSV and PNG outputs
-python gerar_figuras_modelagem_en.py  # didactic isocost-curve figure
-```
+### Works
 
-See [experiment/README.md](experiment/README.md) for a description of the model, the baseline heuristic and each output file.
-
-## Repository layout
-
-```
-index.html          FAQ page served by GitHub Pages (linked from the poster QR code)
-experiment/         run_experiment.py, input CSVs, result CSVs and figures
-poster/             poster PDF (90 x 140 cm) and preview
-requirements.txt    Python dependencies
-```
-
-## Citation
-
-Melo, C. C.; Pereira, J. C.; Varricchio, L. M. S.; Aguiar, P. J. T.; Lopes, F. M.; Jordão, B. M. O. (2026). *Optimization of Wagon Maintenance Mix Allocation in Freight Railways Using Integer Linear Programming.* In: Anais do LVIII Simpósio Brasileiro de Pesquisa Operacional (SBPO 2026).
+| Folder | Contents |
+|---|---|
+| [SBPO_2026/](SBPO_2026/) | Paper and poster presented at LVIII SBPO 2026: FAQ page (PT/EN), reproducible experiment code, anonymized data, results, poster and slides. **Page:** https://carmonexus.github.io/wagon-maintenance/SBPO_2026/ |
 
 ## License
 
