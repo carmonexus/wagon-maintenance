@@ -62,7 +62,7 @@
   <p class="note" lang="en">Provisional link on the congress system, until the paper is published in the proceedings.</p>
 
   <div class="kpis">
-    <div class="kpi"><b>≈ 1,22 Hz</b><span lang="pt">frequência natural ωₙ (galope)</span><span lang="en">natural frequency ωₙ (bounce)</span></div>
+    <div class="kpi"><b>≈ 1,22 Hz</b><span lang="pt">frequência natural ωₙ (ômega n), galope</span><span lang="en">natural frequency ωₙ (omega n), bounce</span></div>
     <div class="kpi"><b>0,126 g</b><span lang="pt">limiar indicativo de alerta (RMS)</span><span lang="en">indicative alert threshold (RMS)</span></div>
     <div class="kpi"><b>≈ 59,7 mm</b><span lang="pt">amplitude teórica na ressonância</span><span lang="en">theoretical amplitude at resonance</span></div>
     <div class="kpi"><b>≈ 4–5 s</b><span lang="pt">duração do transitório</span><span lang="en">transient duration</span></div>
@@ -85,7 +85,7 @@
     <details><summary>Por que usar um quarto da massa do vagão?</summary>
       <p>O modelo representa um conjunto roda-truque-suspensão. Um vagão tem dois truques com dois rodeiros cada, então cada conjunto carrega cerca de ¼ da massa da caixa carregada: 130 t ÷ 4 = 32,5 t.</p></details>
     <details><summary>Por que a irregularidade da via entra como força na massa, e não como movimento da base?</summary>
-      <p>É a hipótese mais forte do trabalho, e está declarada. A excitação de base é fisicamente mais fiel, mas leva a uma EDO da mesma forma, com o mesmo comportamento qualitativo (transitório, regime permanente e ressonância em ωₙ); muda a expressão da amplitude. Como o objetivo é um critério inicial e interpretável, adotou-se a forma mais simples.</p></details>
+      <p>É a hipótese mais forte do trabalho, e está declarada. A excitação de base é fisicamente mais fiel, mas leva a uma EDO da mesma forma, com o mesmo comportamento qualitativo (transitório, regime permanente e ressonância em ωₙ, ômega n); muda a expressão da amplitude. Como o objetivo é um critério inicial e interpretável, adotou-se a forma mais simples.</p></details>
     <details><summary>Por que excitação senoidal, se a via real é aleatória?</summary>
       <p>A senoide é o bloco básico: um perfil periódico de via se decompõe em senoides (série de Fourier) e, como o sistema é linear, a resposta é a soma das respostas a cada componente. Com dados reais de via, o passo seguinte é trabalhar com densidade espectral.</p></details>
     <details><summary>Como o sistema sabe qual vagão está passando?</summary>
@@ -93,9 +93,9 @@
     <details><summary>Detectores à margem da via (wayside) já existem. Qual a novidade?</summary>
       <p>A contribuição não é o sensor, é a referência: um limiar derivado de um modelo físico do vagão, interpretável, em vez de um valor empírico fixo, mais a regra de cruzamento vagão × ponto. A proposta complementa detectores de impacto de roda, com foco em vibração e tendência.</p></details>
     <details><summary>O que muda com a velocidade do trem ou com o vagão vazio?</summary>
-      <p>A velocidade muda a frequência de excitação (ω = 2π·v/λ), então existe uma velocidade crítica em que ω = ωₙ para um dado comprimento de onda de defeito. Vagão vazio tem massa menor e, portanto, ωₙ maior: o limiar de referência deve depender do estado de carga, informação que o RFID pode trazer do sistema de gestão da frota.</p></details>
+      <p>A velocidade muda a frequência de excitação ω (ômega), pois ω = 2π·v/λ, em que v é a velocidade e λ (lambda) o comprimento de onda da irregularidade. Assim, existe uma velocidade crítica em que ω = ωₙ (ômega n) para um dado comprimento de onda de defeito. Vagão vazio tem massa menor e, portanto, ωₙ maior: o limiar de referência deve depender do estado de carga, informação que o RFID pode trazer do sistema de gestão da frota.</p></details>
     <details><summary>Os resultados foram validados com dados reais?</summary>
-      <p>Ainda não. O artigo é explícito: os resultados não substituem validação experimental. Os próximos passos são calibrar ζ e os limiares com dados de ensaio e norma, estender o modelo para dois graus de liberdade incluindo a via e integrar sensores fixos com acelerômetros embarcados.</p></details>
+      <p>Ainda não. O artigo é explícito: os resultados não substituem validação experimental. Os próximos passos são calibrar ζ (zeta, a razão de amortecimento) e os limiares com dados de ensaio e norma, estender o modelo para dois graus de liberdade incluindo a via e integrar sensores fixos com acelerômetros embarcados.</p></details>
   </section>
 
   <section lang="en">
@@ -115,7 +115,7 @@
     <details><summary>Why a quarter of the wagon mass?</summary>
       <p>The model represents one wheel-bogie-suspension set. A wagon has two bogies with two wheelsets each, so each set carries about ¼ of the loaded body mass: 130 t ÷ 4 = 32.5 t.</p></details>
     <details><summary>Why is track irregularity applied as a force on the mass rather than as base motion?</summary>
-      <p>It is the strongest assumption of the work, and it is stated. Base excitation is physically more faithful but leads to an ODE of the same form, with the same qualitative behaviour (transient, steady state and resonance at ωₙ); only the amplitude expression changes. Since the goal is an initial, interpretable criterion, the simpler form was adopted.</p></details>
+      <p>It is the strongest assumption of the work, and it is stated. Base excitation is physically more faithful but leads to an ODE of the same form, with the same qualitative behaviour (transient, steady state and resonance at ωₙ, omega n); only the amplitude expression changes. Since the goal is an initial, interpretable criterion, the simpler form was adopted.</p></details>
     <details><summary>Why sinusoidal excitation, if the real track is random?</summary>
       <p>The sine is the building block: a periodic track profile decomposes into sines (Fourier series) and, since the system is linear, the response is the sum of the responses to each component. With real track data, the next step is to work with spectral density.</p></details>
     <details><summary>How does the system know which wagon is passing?</summary>
@@ -123,9 +123,9 @@
     <details><summary>Wayside detectors already exist. What is new?</summary>
       <p>The contribution is not the sensor but the reference: a threshold derived from an interpretable physical model of the wagon instead of a fixed empirical value, plus the wagon × point cross-check rule. It complements wheel-impact detectors, focusing on vibration and trends.</p></details>
     <details><summary>What changes with train speed or an empty wagon?</summary>
-      <p>Speed changes the excitation frequency (ω = 2π·v/λ), so there is a critical speed at which ω = ωₙ for a given defect wavelength. An empty wagon has less mass and thus a higher ωₙ: the reference threshold should depend on load state, which RFID can pull from the fleet management system.</p></details>
+      <p>Speed changes the excitation frequency ω (omega), since ω = 2π·v/λ, where v is the speed and λ (lambda) the irregularity wavelength. So there is a critical speed at which ω = ωₙ (omega n) for a given defect wavelength. An empty wagon has less mass and thus a higher ωₙ: the reference threshold should depend on load state, which RFID can pull from the fleet management system.</p></details>
     <details><summary>Have the results been validated with real data?</summary>
-      <p>Not yet. The paper is explicit that results do not replace experimental validation. Next steps are calibrating ζ and the thresholds with test data and standards, extending the model to two degrees of freedom including the track, and combining wayside sensors with on-board accelerometers.</p></details>
+      <p>Not yet. The paper is explicit that results do not replace experimental validation. Next steps are calibrating ζ (zeta, the damping ratio) and the thresholds with test data and standards, extending the model to two degrees of freedom including the track, and combining wayside sensors with on-board accelerometers.</p></details>
   </section>
 
   <div class="contact" style="margin-bottom:12px">
