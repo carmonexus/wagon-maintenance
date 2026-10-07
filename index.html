@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Wagon Maintenance Mix</title>
-<meta name="description" content="Otimização da alocação de manutenção de vagões em ferrovias de carga – UCP">
+<title>Manutenção de Vagões</title>
+<meta name="description" content="Pesquisa sobre manutenção de vagões em ferrovias de carga (UCP): monitoramento preditivo de vibração (ANPET 2026) e alocação ótima entre oficinas (SBPO 2026).">
 <style>
   :root { --bg:#f7f8fa; --card:#ffffff; --ink:#1c2430; --muted:#5b6673; --accent:#0b5fa5; --line:#dde3ea; }
   @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#121820; --card:#1b2330; --ink:#e8edf3; --muted:#a3adb9; --accent:#6db3f2; --line:#2c3847; } }
@@ -21,6 +21,7 @@
   .lang button[aria-pressed="true"] { background:var(--accent); color:#fff; border-color:var(--accent); }
   ul { padding-left:22px; }
   .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:16px 20px; margin-top:20px; }
+  .card .meta { color:var(--muted); font-size:.9rem; margin:0 0 6px; }
   .card a.big { display:inline-block; margin-top:8px; background:var(--accent); color:#fff; text-decoration:none; padding:10px 16px; border-radius:8px; font-weight:600; }
   a { color:var(--accent); }
   main [lang="en"] { display:none; }
@@ -33,45 +34,57 @@
 <main>
 <header>
   <div class="lang"><button id="bt-pt" aria-pressed="true" onclick="setLang('pt')">PT</button><button id="bt-en" aria-pressed="false" onclick="setLang('en')">EN</button></div>
-  <h1>Wagon Maintenance Mix</h1>
-  <p class="sub"><span lang="pt">Otimização da alocação de manutenção de vagões em ferrovias de carga</span><span lang="en">Optimization of wagon-maintenance allocation in freight railways</span><br>Universidade Católica de Petrópolis (UCP) · Petrópolis, RJ, Brasil</p>
+  <h1><span lang="pt">Manutenção de Vagões</span><span lang="en">Wagon Maintenance</span></h1>
+  <p class="sub"><span lang="pt">Pesquisa sobre a manutenção de vagões em ferrovias de carga</span><span lang="en">Research on wagon maintenance in freight railways</span><br>Universidade Católica de Petrópolis (UCP) · Petrópolis, RJ, Brasil</p>
 </header>
 
 <section lang="pt">
-  <h2>O problema</h2>
-  <p>Uma ferrovia de carga mantém uma frota de milhares de vagões de tipos diferentes, distribuídos por várias regiões. A manutenção programada precisa ser executada em postos heterogêneos: cada posto só é habilitado para alguns tipos de vagão, tem capacidade mensal limitada em homem-hora e fica a uma distância diferente de cada região.</p>
-  <p>Decidir <strong>qual posto atende cada parcela da demanda regional em cada mês</strong> envolve um compromisso entre:</p>
+  <h2>Visão geral</h2>
+  <p>Uma ferrovia de carga mantém milhares de vagões em circulação, e a manutenção dessa frota levanta duas perguntas complementares:</p>
   <ul>
-    <li><strong>custo de manutenção</strong> próprio de cada posto;</li>
-    <li><strong>custo logístico</strong> de deslocar o vagão até o posto e de volta;</li>
-    <li><strong>custo de indisponibilidade</strong> do vagão durante o trânsito e a intervenção;</li>
-    <li><strong>custo de retenção (backlog)</strong> quando a demanda não é atendida no mês e se acumula.</li>
+    <li><strong>Quando um vagão precisa de atenção?</strong> Detectar cedo, pela vibração, a condição anômala de um vagão ou de um trecho da via, antes que vire falha.</li>
+    <li><strong>Onde e quando fazer a manutenção?</strong> Distribuir a demanda de manutenção entre oficinas com capacidades, habilitações e distâncias diferentes, ao menor custo total.</li>
   </ul>
-  <p>A prática usual, uma heurística "posto local primeiro", respeita a capacidade das oficinas mas ignora o efeito acumulado do backlog. O trabalho formula o problema como um modelo de <strong>programação linear inteira multiperíodo</strong> que minimiza o custo total do sistema. Numa instância anonimizada de 12 meses, 3 regiões e 3 postos, obteve-se redução de 54 % no backlog acumulado e de 25 % no custo total em relação à heurística, com solução em menos de 1 s.</p>
+  <p>Os dois trabalhos abaixo tratam cada uma dessas perguntas com um modelo matemático simples e interpretável: uma equação diferencial para o comportamento físico do vagão e um modelo de programação linear inteira para o planejamento da manutenção.</p>
 
   <div class="card">
-    <h2 style="margin-top:0">SBPO 2026</h2>
-    <p>Artigo e pôster apresentados no LVIII Simpósio Brasileiro de Pesquisa Operacional: página FAQ (PT/EN), código do experimento reprodutível, dados anonimizados, resultados, pôster e slides.</p>
+    <h2 style="margin-top:0">ANPET 2026 · Vibração vertical em vagões</h2>
+    <p class="meta">40º Congresso de Pesquisa e Ensino em Transportes · Búzios, RJ</p>
+    <p>Modelo massa-mola-amortecedor de um grau de liberdade (EDO de 2ª ordem) para a resposta vertical do vagão sob excitação da via. A solução analítica nos regimes transitório, permanente e ressonante gera referências físicas (ωₙ ≈ 1,22 Hz e limiar indicativo de 0,126 g) para um monitoramento preditivo com acelerômetros distribuídos ao longo da malha.</p>
+    <a class="big" href="ANPET_2026/">Abrir a página do ANPET 2026 →</a>
+    <p style="margin-bottom:0"><a href="https://github.com/carmonexus/wagon-maintenance/tree/main/ANPET_2026">Pasta no GitHub</a></p>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0">SBPO 2026 · Alocação da manutenção de vagões</h2>
+    <p class="meta">LVIII Simpósio Brasileiro de Pesquisa Operacional · pôster</p>
+    <p>Modelo de programação linear inteira multiperíodo que decide qual oficina atende cada parcela da demanda regional em cada mês, equilibrando custos de manutenção, logística, indisponibilidade e backlog. Numa instância anonimizada de 12 meses, 3 regiões e 3 postos, reduziu em 54 % o backlog acumulado e em 25 % o custo total frente à heurística "posto local primeiro", com solução em menos de 1 s.</p>
     <a class="big" href="SBPO_2026/">Abrir a página do SBPO 2026 →</a>
     <p style="margin-bottom:0"><a href="https://github.com/carmonexus/wagon-maintenance/tree/main/SBPO_2026">Pasta no GitHub</a></p>
   </div>
 </section>
 
 <section lang="en">
-  <h2>The problem</h2>
-  <p>A freight railway keeps a fleet of thousands of wagons of different types, spread across several regions. Scheduled maintenance must be carried out at heterogeneous workshops: each workshop is eligible for only some wagon types, has a limited monthly person-hour capacity and sits at a different distance from each region.</p>
-  <p>Deciding <strong>which workshop serves each share of regional demand in each month</strong> trades off:</p>
+  <h2>Overview</h2>
+  <p>A freight railway keeps thousands of wagons in service, and maintaining that fleet raises two complementary questions:</p>
   <ul>
-    <li>the <strong>maintenance cost</strong> of each workshop;</li>
-    <li>the <strong>logistics cost</strong> of moving the wagon to the workshop and back;</li>
-    <li>the <strong>unavailability cost</strong> of the wagon during transit and intervention;</li>
-    <li>the <strong>retention (backlog) cost</strong> when demand is not met in the month and carries over.</li>
+    <li><strong>When does a wagon need attention?</strong> Detect early, through vibration, an anomalous condition of a wagon or a track section before it becomes a failure.</li>
+    <li><strong>Where and when should maintenance be done?</strong> Distribute maintenance demand among workshops with different capacities, eligibilities and distances, at minimum total cost.</li>
   </ul>
-  <p>Common practice, a "local workshop first" heuristic, respects workshop capacity but ignores the cumulative effect of backlog. The work formulates the problem as a <strong>multi-period integer linear programming</strong> model that minimizes total system cost. On an anonymized instance with 12 months, 3 regions and 3 workshops it achieved a 54 % reduction in cumulative backlog and 25 % in total cost against the heuristic, solved in under 1 s.</p>
+  <p>The two works below each address one of these questions with a simple, interpretable mathematical model: a differential equation for the wagon's physical behaviour and an integer linear programming model for maintenance planning.</p>
 
   <div class="card">
-    <h2 style="margin-top:0">SBPO 2026</h2>
-    <p>Paper and poster presented at the LVIII Brazilian Symposium on Operations Research: FAQ page (PT/EN), reproducible experiment code, anonymized data, results, poster and slides.</p>
+    <h2 style="margin-top:0">ANPET 2026 · Vertical vibration in wagons</h2>
+    <p class="meta">40th Congress of Research and Education in Transportation · Búzios, RJ</p>
+    <p>A single-degree-of-freedom mass-spring-damper model (second-order ODE) for the vertical response of the wagon under track excitation. The analytical solution in the transient, steady-state and resonant regimes yields physical references (ωₙ ≈ 1.22 Hz and an indicative 0.126 g threshold) for predictive monitoring with accelerometers distributed along the network.</p>
+    <a class="big" href="ANPET_2026/">Open the ANPET 2026 page →</a>
+    <p style="margin-bottom:0"><a href="https://github.com/carmonexus/wagon-maintenance/tree/main/ANPET_2026">Folder on GitHub</a></p>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0">SBPO 2026 · Wagon maintenance allocation</h2>
+    <p class="meta">LVIII Brazilian Symposium on Operations Research · poster</p>
+    <p>A multi-period integer linear programming model that decides which workshop serves each share of regional demand in each month, balancing maintenance, logistics, unavailability and backlog costs. On an anonymized instance with 12 months, 3 regions and 3 workshops it cut cumulative backlog by 54 % and total cost by 25 % against a "local workshop first" heuristic, solved in under 1 s.</p>
     <a class="big" href="SBPO_2026/">Open the SBPO 2026 page →</a>
     <p style="margin-bottom:0"><a href="https://github.com/carmonexus/wagon-maintenance/tree/main/SBPO_2026">Folder on GitHub</a></p>
   </div>
